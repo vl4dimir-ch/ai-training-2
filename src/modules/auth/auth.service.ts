@@ -39,7 +39,11 @@ export class AuthService {
 
     return {
       accessToken: token,
-      user: auth
+      user: {
+        id: auth.id,
+        username: auth.username,
+        email: auth.email
+      }
     };
   }
 
@@ -67,7 +71,11 @@ export class AuthService {
 
     return {
       accessToken: token,
-      user: auth
+      user: {
+        id: auth.id,
+        username: auth.username,
+        email: auth.email
+      }
     };
   }
 
