@@ -26,23 +26,22 @@ alwaysApply: false
 ### PUT /users/1
 - [x] Define route handler for `PUT /users/:id`
 - [x] Parse request body
-- [] Simulate update and return fake updated user object
+- [x] Simulate update and return fake updated user object
 
 ### PATCH /users/1
 - [x] Define route handler for `PATCH /users/:id`
 - [x] Parse partial update data
-- [ ] Simulate update and return fake updated user object
+- [x] Simulate update and return fake updated user object
 
 ### DELETE /users/1
 - [x] Define route handler for `DELETE /users/:id`
 - [x] Simulate deletion
 - [x] Return fake success message (e.g., `{ success: true }`)
 
-## Later Task: Filtering Support
+## Filtering Support
 
 ### GET /users?property=value
-- [ ] Add query parameter parsing to `GET /users`
-- [ ] Implement filter logic on mock user array
-- [ ] Support multiple filters (e.g., `?name=John&age=30`)
-- [ ] Document filterable fields
+- [x] Add query parameter parsing to `GET /users`
+- [x] Support multiple filters (e.g., `?name=John&age=30`)
+- [] Document filterable fields
 
