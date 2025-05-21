@@ -1,0 +1,19 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Authentication
+
+## Core Tasks
+
+### Database & Prisma
+- [] Store name, email, and password_hash in the authentication table.
+
+### Business Logic
+- [] Create endpoints for registration and logging in
+- [] Use argon2 for hashing
+- [] Generate JWT tokens both on registration and login
+- [] Create a guard for JWT authentication, apply it globally
+- [] Create a @Public decorator for endpoints
+

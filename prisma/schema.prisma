@@ -8,18 +8,18 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  name         String
-  username     String   @unique
-  email        String   @unique
-  phone        String
-  website      String
-  address      Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
-  addressId    Int?     @unique
-  company      Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId    Int?     @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  username  String   @unique
+  email     String   @unique
+  phone     String
+  website   String
+  address   Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId Int?     @unique
+  company   Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId Int?     @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Address {
@@ -46,4 +46,10 @@ model Company {
   catchPhrase String
   bs          String
   user        User?
+}
+
+model Authentication {
+  id           Int    @id @default(autoincrement())
+  username     String @unique
+  passwordHash String
 }
