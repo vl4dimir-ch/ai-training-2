@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@db:5432/nest_db?schema=public}
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@db:5432/nest_db?schema=public}
+      - JWT_SECRET=${JWT_SECRET:-default_JWT_SECRET_dev_only}
+      - PORT=${PORT:-3000}
+    depends_on:
+      - db
+    restart: unless-stopped
+    volumes:
+      - ./src:/app/src
+      - ./dist:/app/dist
+    networks:
+      - app-network
+
+  db:
+    image: postgres:17-alpine
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+      - POSTGRES_DB=${DB_NAME:-nest_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
