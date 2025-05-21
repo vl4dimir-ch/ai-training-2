@@ -105,8 +105,8 @@ export class UsersService {
     }
 
     // Since mutations are fake, both PUT and PATCH are implemented as updateOrReplace
-    async replace(id: number, updateUserDto: UpdateUserDto): Promise<UserResponse> {
-        return await this.update(id, updateUserDto);
+    async replace(id: number, replaceUserDto: ReplaceUserDto): Promise<UserResponse> {
+        return await this.update(id, replaceUserDto);
     }
 
     async remove(id: number): Promise<UserResponse> {
