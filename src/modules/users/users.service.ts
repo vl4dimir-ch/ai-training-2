@@ -6,6 +6,7 @@ import { UserResponse } from './types/user-response.type';
 import { userSelect } from './constants/user-select.constant';
 import { ReplaceUserDto } from './dto/replace-user.dto';
 import { removeUndefinedProperties } from '../../utils/object.utils';
+import { FilterUserDto } from './dto/filter-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -49,20 +50,24 @@ export class UsersService {
         };
     }
 
-    async findAll(): Promise<UserResponse[]> {
+    async findAll(filters?: FilterUserDto): Promise<UserResponse[]> {
         return await this.prisma.user.findMany({
+            where: filters,
             select: userSelect
         });
     }
 
-    async findOne(id: number): Promise<UserResponse> {
-        const user = await this.prisma.user.findUnique({
-            where: { id },
+    async findOne(id: number, filters?: FilterUserDto): Promise<UserResponse> {
+        const user = await this.prisma.user.findFirst({
+            where: {
+                id,
+                ...filters
+            },
             select: userSelect
         });
 
         if (!user) {
-            throw new NotFoundException(`User with ID ${id} not found`);
+            throw new NotFoundException(`User with ID ${id} not found or doesn't match filters`);
         }
 
         return user;
@@ -80,10 +85,12 @@ export class UsersService {
                 where: {
                     AND: [
                         { id: { not: id } },
-                        { OR: [
-                            { username: { equals: updateUserDto.username, mode: 'insensitive' } },
-                            { email: { equals: updateUserDto.email, mode: 'insensitive' } }
-                        ] }
+                        {
+                            OR: [
+                                { username: { equals: updateUserDto.username, mode: 'insensitive' } },
+                                { email: { equals: updateUserDto.email, mode: 'insensitive' } }
+                            ]
+                        }
                     ]
                 }
             });

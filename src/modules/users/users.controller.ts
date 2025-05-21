@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Put, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ReplaceUserDto } from './dto/replace-user.dto';
+import { FilterUserDto } from './dto/filter-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -14,13 +15,16 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Query() filters: FilterUserDto) {
+    return this.usersService.findAll(filters);
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findOne(id);
+  findOne(
+    @Param('id', ParseIntPipe) id: number,
+    @Query() filters: FilterUserDto
+  ) {
+    return this.usersService.findOne(id, filters);
   }
 
   @Patch(':id')
