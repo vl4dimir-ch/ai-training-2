@@ -12,7 +12,7 @@ export class AuthService {
   ) { }
 
   async register(registerDto: RegisterDto): Promise<AuthResponse> {
-    const existingUser = await this.prisma.user.findFirst({
+    const existingUser = await this.prisma.authentication.findFirst({
       where: {
         OR: [
           { username: { equals: registerDto.username, mode: 'insensitive' } },
