@@ -8,6 +8,7 @@ A production-ready REST API that extends the functionality of JSONPlaceholder wi
 - 📝 Full CRUD operations for all resources
 - 📊 PostgreSQL persistence
 - 🐳 Docker containerization
+- 📚 Swagger API documentation
 - 🚀 Easy deployment
 
 ## Services
