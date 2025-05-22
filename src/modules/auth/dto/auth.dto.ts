@@ -22,13 +22,4 @@ export class LoginDto {
   @IsString()
   @MinLength(8)
   password: string;
-}
-
-export class AuthResponse {
-  accessToken: string;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-  }
 } 

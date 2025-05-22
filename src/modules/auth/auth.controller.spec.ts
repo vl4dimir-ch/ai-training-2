@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { RegisterDto, LoginDto, AuthResponse } from './dto/auth.dto';
+import { RegisterDto, LoginDto } from './dto/auth.dto';
+import { AuthResponse } from './interfaces/auth.interface';
+import { AUTH_ERRORS } from './constants/auth.constants';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -62,10 +64,9 @@ describe('AuthController', () => {
     });
 
     it('should throw an error if registration fails', async () => {
-      const errorMessage = 'Username or email already exists';
-      mockAuthService.register.mockRejectedValue(new Error(errorMessage));
+      mockAuthService.register.mockRejectedValue(new Error(AUTH_ERRORS.USER_EXISTS));
 
-      await expect(controller.register(registerDto)).rejects.toThrow(errorMessage);
+      await expect(controller.register(registerDto)).rejects.toThrow(AUTH_ERRORS.USER_EXISTS);
       expect(authService.register).toHaveBeenCalledWith(registerDto);
       expect(authService.register).toHaveBeenCalledTimes(1);
     });
@@ -88,10 +89,9 @@ describe('AuthController', () => {
     });
 
     it('should throw an error if login fails', async () => {
-      const errorMessage = 'Invalid credentials';
-      mockAuthService.login.mockRejectedValue(new Error(errorMessage));
+      mockAuthService.login.mockRejectedValue(new Error(AUTH_ERRORS.INVALID_CREDENTIALS));
 
-      await expect(controller.login(loginDto)).rejects.toThrow(errorMessage);
+      await expect(controller.login(loginDto)).rejects.toThrow(AUTH_ERRORS.INVALID_CREDENTIALS);
       expect(authService.login).toHaveBeenCalledWith(loginDto);
       expect(authService.login).toHaveBeenCalledTimes(1);
     });
