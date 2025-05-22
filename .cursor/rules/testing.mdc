@@ -9,7 +9,7 @@ You must:
 
 Analyze the provided code snippet or describe the typical structure if code is not available.
 
-Test using the actual database.
+Test by mocking database calls via Prisma.
 
 Write unique, non-boilerplate unit and integration tests that cover both common and edge cases.
 
